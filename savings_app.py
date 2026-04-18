@@ -11,8 +11,11 @@ import io
 def init_db(year):
     conn = sqlite3.connect("savings.db")
     c = conn.cursor()
+    # Drop old table if it exists (to avoid mismatch errors)
+    c.execute("DROP TABLE IF EXISTS savings")
+    # Create new table with 6 columns
     c.execute("""
-        CREATE TABLE IF NOT EXISTS savings (
+        CREATE TABLE savings (
             day INTEGER PRIMARY KEY,
             date TEXT,
             amount INTEGER,
